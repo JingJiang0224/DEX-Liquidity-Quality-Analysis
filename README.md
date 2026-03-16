@@ -95,19 +95,19 @@ Project Title
 ### Step 2 - Metric Construction in Each Dimension
 **(1) Dimension 1: Liquidity Quality**
 
-&nbsp;&nbsp;&nbsp;&nbsp;**Goal:** Liquidity Quality dimension is to measure how much liquidity exists and how reliable it is. 
+&nbsp;&nbsp;**Goal:** Liquidity Quality dimension is to measure how much liquidity exists and how reliable it is. 
 
 
 <br />
 
-  **Metrics used:**
+&nbsp;&nbsp;**Metrics used:**
 
-  **a. Liquidity Depth**
-  - avg_reserve_usd_7d 
+&nbsp;&nbsp;**a. Liquidity Depth**
+   - avg_reserve_usd_7d 
 
 
-  **b. Liquidity Stability**
-  - liquidity_stability_score
+&nbsp;&nbsp;**b. Liquidity Stability**
+   - liquidity_stability_score
               
               - liquidity_volatility_7d = stddev(liquidity_7d) / mean(liquidity_7d)
               
@@ -115,8 +115,8 @@ Project Title
               
               - liquidity_stability_score = 1 - liquidity_volatility_score 
 
-  **c. Liquidity Distribution**
-  - liquidity_distribution_score
+&nbsp;&nbsp;**c. Liquidity Distribution**
+   - liquidity_distribution_score
               
               - lp_gini = SUM((2 * rank - num_holders - 1) * balance_rank) / (num_holders * SUM(balance))
 
@@ -128,12 +128,12 @@ Project Title
 
 <br />
 
-  **Weights assigned:**
+&nbsp;&nbsp;**Weights assigned:**
      - Liquidity Depth Score: 0.5
      - Liquidity Stability Score: 0.3
      - Liquidity Distribution Score: 0.2
 
-  All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
+&nbsp;&nbsp;All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
 
 <br />
 <br />
@@ -146,59 +146,56 @@ Project Title
 
 **(2) Dimension 2: Trade Activity**
 
-**Goal:** To measure whether a pool exhibits consistent, diversified, and economically meaningful trading behavior, rather than activity concentrated in automated or arbitrage patterns. 
+&nbsp;&nbsp;**Goal:** To measure whether a pool exhibits consistent, diversified, and economically meaningful trading behavior, rather than activity concentrated in automated or arbitrage patterns. 
 
 <br />
 
-**Metrics used:**
+&nbsp;&nbsp;**Metrics used:**
 
-**a. Consistency of Usage**
-- swap_days_7d 
+ - **Consistency of Usage**: `swap_days_7d` 
 
-**b. Participation Breadth**
-- unique_traders_7d 
+ - **Participation Breadth**: `unique_traders_7d` 
 
-**c. Economic Depth**
-- median_daily_volume_7d
+ - **Economic Depth**: `median_daily_volume_7d`
 
-**d. Organic Participation (EOA Share)**
-- eoa_like_traders_share = eoa_like_traders / all_traders
-- eoa_like_volumes_share = eoa_like_volumes / total_volumes
+ - **Organic Participation (EOA Share)**: `eoa_like_traders_share`, `eoa_like_volumes_share`
+   - eoa_like_traders_share = eoa_like_traders / all_traders
+   - eoa_like_volumes_share = eoa_like_volumes / total_volumes
 
 <br />
 
-**Weights assigned:**
+&nbsp;&nbsp;**Weights assigned:**
    - Usage Consistency Score: 0.25
    - Participation Breadth Score: 0.35
    - Economic Depth Score: 0.3
    - Organic Participation Score: 0.15
 
-All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
+&nbsp;&nbsp;All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
 
 <br />
 <br />
 
 **(3) Dimension 3: Market Quality**
 
-**Goal:** To evaluate whether trades in a pool can be executed efficiently and at prices close to the broader market. 
+&nbsp;&nbsp;**Goal:** To evaluate whether trades in a pool can be executed efficiently and at prices close to the broader market. 
 
 <br />
 
-**Metrics used:**
+&nbsp;&nbsp;**Metrics used:**
 
-**a. Price Impact**
-- median_sim_price_impact_7d
+&nbsp;&nbsp;**a. Price Impact**
+ - median_sim_price_impact_7d
 
-**b. Price Efficiency**
-- median_price_deviation_7d 
+&nbsp;&nbsp;**b. Price Efficiency**
+ - median_price_deviation_7d 
 
 <br />
 
-**Weights assigned:**
+&nbsp;&nbsp;**Weights assigned:**
    - Price Impact Score: 0.7
    - Price Efficiency Score: 0.3
 
-All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
+&nbsp;&nbsp;All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
 
 <br />
 <br />
