@@ -4,7 +4,7 @@
 
 **Authour**: Jing Jiang
 
-**Date**: Nov 2025 - Feb 2026
+**Date**: 11/2025 - 02/2026
 
 **Data Source**: On-chain trading data from Uniswap V2
 
@@ -21,14 +21,14 @@
 
 
 
-## Research Question 
-Which liquidity pools on Uniswap V2 provide the **highest market quality**?
+# Research Question 
+> Which liquidity pools on Uniswap V2 provide the **highest market quality**?
 
 <br />
 
 
 
-## Introduction
+# Introduction
 
 This project evaluates **the quality of liquidity pools on Uniswap V2** using on-chain trading data.
 
@@ -38,9 +38,9 @@ This project evaluates **the quality of liquidity pools on Uniswap V2** using on
 
 To identify economically meaningful pools, this analysis ranks pairs across **three dimensions**:
 
-- Liquidity Capacity
-- Trade Activity
-- Price Quality
+- **Liquidity Capacity**
+- **Trade Activity**
+- **Price Quality**
 
 The goal is to highlight pools that provide stable liquidity, active trading, and efficient price discovery.
 <br />
@@ -49,9 +49,9 @@ The goal is to highlight pools that provide stable liquidity, active trading, an
 <br />
 
 
-## **Methodology**
+# **Methodology**
 
-### A. Analytical Framework
+## 1. Analytical Framework
 
 This project proposes a **multi-dimensional framework** to systematically evaluate the quality of trading pairs on Uniswap V2.
 
@@ -65,92 +65,90 @@ Rather than relying on a single metric such as trading volume or liquidity size,
 
 Each dimension captures a different characteristic of a healthy trading market. Together, by condensing score for each dimension, they provide a more comprehensive view of pool quality.
 
-Framework flow:
-
-
 <br />
-
-### B. Methodology Overview
-### Step 1 - Data Aggregation and Preprocessing
-
-
+**Methodology Flow**
+https://drive.google.com/file/d/1q9QZPkFqtptBJXl7CE24Kdi1ULMXg82P/view?usp=sharing
+## 2. 
 
 <br />
 <br />
-Project Title
- 
- ├ Overview
- 
- ├ Methodology
- 
- ├ Metrics
- 
- ├ Dashboard
- 
- └ Key Findings
 
-> Key Insight  
-> Pools with high liquidity do not always attract organic trading activity.
 
-### Step 2 - Metric Construction in Each Dimension
-**(1) Dimension 1: Liquidity Quality**
 
-&nbsp;&nbsp;**Goal:** Liquidity Quality dimension is to measure how much liquidity exists and how reliable it is. 
+
+
+
+## 2. Detailed Methodology
+### 2.1 Stage 1: Data Preprocessing
+
+Pool-level metrics are computed using on-chain swap and liquidity data over the past 7 days. Detailed processing is as below.
+
+**(1) Liquidity Filter**
+
+Uniswap V2 contains 2000+ trading pairs. A substantial proportion of these pools are illiquid, inactive or concentrated among a small number of participants.
+The objective of this stage is to remove non-viable pools to ensure effective analysis.
+
+  - **Metric:** `avg_reserve_usd_7d (average reserve usd within last 7 days)`
+
+  - **Rule:** `Exclude pools below 90th percentile of average liquidity within 7 days. (Percent rank ≥ 90th percentile)`
+
+**(2) Pair Classification**
+
+Price behavior in AMMs depends heavily on underlying asset volatility. So that we can conduct Within-group comparisons to offer more meaningful analysis.
+
+Here we classified pairs based on token characteristics:
+
+- Stable–Stable
+- Stable–Volatile
+- Volatile–Volatile
+
 
 
 <br />
+<br />
 
-&nbsp;&nbsp;**Metrics used:**
+### 2.2 Stage 2: Metric Construction in Each Dimension
 
-&nbsp;&nbsp;**a. Liquidity Depth**
-   - avg_reserve_usd_7d 
+For each dimension, several metrics are designed to capture key characteristics of corresponding dimension. 
+Each metric reflects a specific aspect of pool performance.
+Then, they are normalized into comparable scores ranging from 0 to 1, and combined with weights in each dimension. Higher scores indicate better performance.
 
+#### **(1) Dimension 1: Liquidity Quality**
 
-&nbsp;&nbsp;**b. Liquidity Stability**
-   - liquidity_stability_score
+**Goal:** Liquidity Quality dimension is to measure how much liquidity exists and how reliable it is. 
+
+**Metrics used:**
+
+- **Liquidity Depth:** `avg_reserve_usd_7d` 
+- **Liquidity Stability:** `liquidity_stability_score`
               
-              - liquidity_volatility_7d = stddev(liquidity_7d) / mean(liquidity_7d)
+        - liquidity_volatility_7d = stddev(liquidity_7d) / mean(liquidity_7d)
+        - normalize liquidity_volatility_7d into liquidity_volatility_score in the range [0,1]
+        - liquidity_stability_score = 1 - liquidity_volatility_score 
+
+- **Liquidity Distribution:** `liquidity_distribution_score`
               
-              - normalize liquidity_volatility_7d into liquidity_volatility_score in the range [0,1]
-              
-              - liquidity_stability_score = 1 - liquidity_volatility_score 
+        - lp_gini = SUM((2 * rank - num_holders - 1) * balance_rank) / (num_holders * SUM(balance))
+        - normalize lp_gini into the range of [0,1]
+        - liquidity_concentration_score = 0.6 * lp_gini + 0.4 * top1_share
+        - liquidity_distribution_score = 1 - liquidity_concentration_score
 
-&nbsp;&nbsp;**c. Liquidity Distribution**
-   - liquidity_distribution_score
-              
-              - lp_gini = SUM((2 * rank - num_holders - 1) * balance_rank) / (num_holders * SUM(balance))
+**Weights assigned:**
+    
+- Liquidity Depth Score: 0.5
+- Liquidity Stability Score: 0.3
+- Liquidity Distribution Score: 0.2
 
-              - normalize lp_gini into the range of [0,1]
-
-              - liquidity_concentration_score = 0.6 * lp_gini + 0.4 * top1_share
-
-              - liquidity_distribution_score = 1 - liquidity_concentration_score
+All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
 
 <br />
 
-&nbsp;&nbsp;**Weights assigned:**
-     - Liquidity Depth Score: 0.5
-     - Liquidity Stability Score: 0.3
-     - Liquidity Distribution Score: 0.2
 
-&nbsp;&nbsp;All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
+#### **(2) Dimension 2: Trade Activity**
 
-<br />
-<br />
+**Goal:** To measure whether a pool exhibits consistent, diversified, and economically meaningful trading behavior, rather than activity concentrated in automated or arbitrage patterns. 
 
-
-
-
-
-
-
-**(2) Dimension 2: Trade Activity**
-
-&nbsp;&nbsp;**Goal:** To measure whether a pool exhibits consistent, diversified, and economically meaningful trading behavior, rather than activity concentrated in automated or arbitrage patterns. 
-
-<br />
-
-&nbsp;&nbsp;**Metrics used:**
+**Metrics used:**
 
  - **Consistency of Usage**: `swap_days_7d` 
 
@@ -159,43 +157,35 @@ Project Title
  - **Economic Depth**: `median_daily_volume_7d`
 
  - **Organic Participation (EOA Share)**: `eoa_like_traders_share`, `eoa_like_volumes_share`
-   - eoa_like_traders_share = eoa_like_traders / all_traders
-   - eoa_like_volumes_share = eoa_like_volumes / total_volumes
+        - eoa_like_traders_share = eoa_like_traders / all_traders
+        - eoa_like_volumes_share = eoa_like_volumes / total_volumes
+
+**Weights assigned:**
+
+- Usage Consistency Score: 0.25
+- Participation Breadth Score: 0.35
+- Economic Depth Score: 0.3
+- Organic Participation Score: 0.15
+
+All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
 
 <br />
 
-&nbsp;&nbsp;**Weights assigned:**
-   - Usage Consistency Score: 0.25
-   - Participation Breadth Score: 0.35
-   - Economic Depth Score: 0.3
-   - Organic Participation Score: 0.15
+#### **(3) Dimension 3: Market Quality**
 
-&nbsp;&nbsp;All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
+**Goal:** To evaluate whether trades in a pool can be executed efficiently and at prices close to the broader market. 
 
-<br />
-<br />
+**Metrics used:**
 
-**(3) Dimension 3: Market Quality**
+- **Price Impact:** `median_sim_price_impact_7d`
+- **Price Efficiency:** `median_price_deviation_7d` 
 
-&nbsp;&nbsp;**Goal:** To evaluate whether trades in a pool can be executed efficiently and at prices close to the broader market. 
+**Weights assigned:**
+ 
+- Price Impact Score: 0.7
+- Price Efficiency Score: 0.3
 
-<br />
-
-&nbsp;&nbsp;**Metrics used:**
-
-&nbsp;&nbsp;**a. Price Impact**
- - median_sim_price_impact_7d
-
-&nbsp;&nbsp;**b. Price Efficiency**
- - median_price_deviation_7d 
-
-<br />
-
-&nbsp;&nbsp;**Weights assigned:**
-   - Price Impact Score: 0.7
-   - Price Efficiency Score: 0.3
-
-&nbsp;&nbsp;All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
+All metrics are normalized to a 0-1 score, then aggregated with weights into a dimension score for each pool.
 
 <br />
 <br />
@@ -203,10 +193,10 @@ Project Title
 
 
 
-#### Step 3 - Dimension Scoring and Ranking
-All metrics are normalized to a 0–1 score, then aggregated into dimension scores and an overall pool score.
+### 2.3 Stage 3: Dimension Scoring and Ranking
+So far, we've got the 0-1 score for each dimension, then we aggregated them into an overall pool score and pool rank.
 
-
+<br />
 <br />
 
 
