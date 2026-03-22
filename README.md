@@ -156,21 +156,10 @@ All metrics are normalized to a 0-1 score, then aggregated with weights into a d
  - **Economic Depth**: `median_daily_volume_7d`
 
  - **Organic Participation (EOA Share)**: `eoa_like_traders_share`, `eoa_like_volumes_share`
-        - eoa_like_traders_share = eoa_like_traders / all_traders
-        - eoa_like_volumes_share = eoa_like_volumes / total_volumes
 
-> ** How is Organic Participation (EOA Share) Defined?**
-> Instead of strictly identifying externally owned accounts (EOAs), organic participation is approximated by excluding transactions that exhibit strong MEV or automation patterns.
->            EOA-like Trader Share
->           = (All traders − traders matching MEV/automation patterns) / All traders
->           EOA-like Volume Share
->           = (Total volume − volume matching MEV/automation patterns) / Total volume
-> ** Identifying MEV / Automation Patterns**
-> Transactions are flagged as automated if they match one of the following patterns:
-> - Same-block roundtrip trades by the same address on the same pair
-> - High-frequency traders within the 7-day window
-> - Known MEV contract labels
-> These filters help approximate organic user participation by excluding strongly automated trading behavior.
+       - eoa_like_traders_share = eoa_like_traders / all_traders
+       - eoa_like_volumes_share = eoa_like_volumes / total_volumes
+
 
 **Weights assigned:**
 
