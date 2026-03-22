@@ -68,6 +68,17 @@ Each dimension captures a different characteristic of a healthy trading market. 
 <br />
 **Methodology Flow**
 https://drive.google.com/file/d/1q9QZPkFqtptBJXl7CE24Kdi1ULMXg82P/view?usp=sharing
+
+<h3 align="center">Methodology Framework</h3>
+
+<p align="center">
+  <img src="./assets/methodology_flow.png" width="800"/>
+</p>
+
+<p align="center">
+  <em>Figure: Pool Quality Scoring Framework</em>
+</p>
+
 ## 2. 
 
 <br />
@@ -159,6 +170,8 @@ All metrics are normalized to a 0-1 score, then aggregated with weights into a d
  - **Organic Participation (EOA Share)**: `eoa_like_traders_share`, `eoa_like_volumes_share`
         - eoa_like_traders_share = eoa_like_traders / all_traders
         - eoa_like_volumes_share = eoa_like_volumes / total_volumes
+
+<< 123
 
 **Weights assigned:**
 
