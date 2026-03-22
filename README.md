@@ -66,27 +66,15 @@ Rather than relying on a single metric such as trading volume or liquidity size,
 Each dimension captures a different characteristic of a healthy trading market. Together, by condensing score for each dimension, they provide a more comprehensive view of pool quality.
 
 <br />
-**Methodology Flow**
-https://drive.google.com/file/d/1q9QZPkFqtptBJXl7CE24Kdi1ULMXg82P/view?usp=sharing
 
-<h3 align="center">Methodology Framework</h3>
+<h4 align="center">Methodology Framework</h4>
 
 <p align="center">
-  <img src="./assets/methodology_flow.png" width="800"/>
+  <img src="methodology_flow.png" width="600"/>
 </p>
-
-<p align="center">
-  <em>Figure: Pool Quality Scoring Framework</em>
-</p>
-
-## 2. 
 
 <br />
 <br />
-
-
-
-
 
 
 ## 2. Detailed Methodology
@@ -171,7 +159,18 @@ All metrics are normalized to a 0-1 score, then aggregated with weights into a d
         - eoa_like_traders_share = eoa_like_traders / all_traders
         - eoa_like_volumes_share = eoa_like_volumes / total_volumes
 
-<< 123
+> ** How is Organic Participation (EOA Share) Defined?**
+> Instead of strictly identifying externally owned accounts (EOAs), organic participation is approximated by excluding transactions that exhibit strong MEV or automation patterns.
+>            EOA-like Trader Share
+>           = (All traders − traders matching MEV/automation patterns) / All traders
+>           EOA-like Volume Share
+>           = (Total volume − volume matching MEV/automation patterns) / Total volume
+> ** Identifying MEV / Automation Patterns**
+> Transactions are flagged as automated if they match one of the following patterns:
+> - Same-block roundtrip trades by the same address on the same pair
+> - High-frequency traders within the 7-day window
+> - Known MEV contract labels
+> These filters help approximate organic user participation by excluding strongly automated trading behavior.
 
 **Weights assigned:**
 
