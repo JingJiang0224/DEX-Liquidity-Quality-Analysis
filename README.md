@@ -22,7 +22,7 @@
 
 
 # Research Question 
-> Which liquidity pools on Uniswap V2 provide the **highest market quality**?
+> Which liquidity pools on Uniswap V2 provide the **highest quality**?
 
 <br />
 
@@ -40,7 +40,7 @@ To identify economically meaningful pools, this analysis ranks pairs across **th
 
 - **Liquidity Capacity**
 - **Trade Activity**
-- **Price Quality**
+- **Market Quality**
 
 The goal is to highlight pools that provide stable liquidity, active trading, and efficient price discovery.
 <br />
