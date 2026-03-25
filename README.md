@@ -222,5 +222,10 @@ EOA classification approximates organic activity but cannot perfectly separate h
 
 The analysis focuses on 7-day metrics, which may not capture longer-term market dynamics.
 
+The framework can be extended to other AMMs such as Uniswap V3 or applied over longer time horizons.
+
+Future work could incorporate additional metrics such as fee generation, LP returns, or cross-DEX price efficiency.
+
+This approach provides a data-driven foundation for evaluating market quality in decentralized exchanges.
 
 
