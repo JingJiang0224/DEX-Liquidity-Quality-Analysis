@@ -203,11 +203,10 @@ So far, we've got the 0-1 score for each dimension, then we aggregated them into
 
 ### **Key Results**
 
-Key Findings
-
-
-Visual Analysis
-
+1. Pool quality varies significantly across Uniswap v2. High liquidity does not always imply strong market quality and trading activities.
+3. High-quality pools are defined as the top 20% by overall score (26/128 pools).
+4. High-quality pools are concentrated among pairs involving stable assets, particularly stable-stable and stable-volatile pairs. 
+5. Liquidity alone does not ensure meaningful usage. Some pairs maintain deep liquidity but limited organic participation, while larger trade volumes are often executed through routing or automated strategies.
 
 <br />
 
@@ -216,16 +215,19 @@ Visual Analysis
 
 Several limitations should be considered:
 
-Price deviation depends on the quality of the reference price source.
+- The analysis focuses on 7-day metrics, which may not capture longer-term market dynamics.
+- EOA share is an approximation of organic activity and may not fully separate human users from automated wallets.
+- Price impact is estimated using simulated trade sizes, which provide an approximate measure.
+- Metric weights are defined base on analytical assumptions and may influence final rankings.
 
-EOA classification approximates organic activity but cannot perfectly separate human users from automated wallets.
 
-The analysis focuses on 7-day metrics, which may not capture longer-term market dynamics.
 
-The framework can be extended to other AMMs such as Uniswap V3 or applied over longer time horizons.
+### **Future Work**
 
-Future work could incorporate additional metrics such as fee generation, LP returns, or cross-DEX price efficiency.
+- This approach provides a data-driven foundation for evaluating market quality in DEX, and can be extended to other AMM protocals and incorporate additional metrics.
+- Extend analysis to longer time horizons to capture long-term market dynamics.
+- Refine identification od organic vs autonated trading activity.
+- Explore alternative weighting schemes and more robust ranking methods. 
 
-This approach provides a data-driven foundation for evaluating market quality in decentralized exchanges.
 
 
