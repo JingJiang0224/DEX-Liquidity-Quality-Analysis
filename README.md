@@ -201,7 +201,7 @@ So far, we've got the 0-1 score for each dimension, then we aggregated them into
 <br />
 
 
-### **Key Results**
+# **Key Insights**
 
 1. Pool quality varies significantly across Uniswap v2. High liquidity does not always imply strong market quality and trading activities.
 3. High-quality pools are defined as the top 20% by overall score (26/128 pools).
