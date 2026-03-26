@@ -211,7 +211,7 @@ So far, we've got the 0-1 score for each dimension, then we aggregated them into
 <br />
 
 
-### **Limitations**
+# **Limitations**
 
 Several limitations should be considered:
 
@@ -222,7 +222,7 @@ Several limitations should be considered:
 
 
 
-### **Future Work**
+# **Future Work**
 
 - This approach provides a data-driven foundation for evaluating market quality in DEX, and can be extended to other AMM protocals and incorporate additional metrics.
 - Extend analysis to longer time horizons to capture long-term market dynamics.
