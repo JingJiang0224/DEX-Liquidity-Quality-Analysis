@@ -10,7 +10,7 @@
 
 **Tools**: Dune Analytics, SQL
 
-**Link of Dashboard**: [link](https://dune.com/santiana_ia/pjjjj)
+**Link of Dashboard**: [link]([https://dune.com/santiana_ia/pjjjj](https://dune.com/santiana_ia/dex-liquidity-quality-analysis]), [link]([https://dune.com/santiana_ia/draft-overview])
 
 **Link of Code**: [link](https://dune.com/workspace/u/santiana_ia/folders/Project:%20DEX_quality_uniswapv2)
 
