@@ -2,9 +2,9 @@
 
 
 
-**Authour**: Jing Jiang Santiana_ia
+**Author**: Jing Jiang Santiana_ia
 
-**Date**: 11/2025 - 02/2026
+**Date**: 11/2025 - 03/2026
 
 **Data Source**: On-chain trading data from Uniswap V2
 
